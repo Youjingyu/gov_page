@@ -1,11 +1,63 @@
 body{
-    /*margin: 0;*/
+    margin: 0 auto;
+    width: 1200px;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
 }
 
 .clear-fix:before,.clear-fix:after{
     display: table;
     content: '';
     clear: both;
+}
+
+.top{
+    height: 50px;
+    line-height: 50px;
+}
+
+.top-left{
+    float: left;
+}
+
+.top-right{
+    float: right;
+}
+
+.slidebar{
+    float: left;
+    width: 200px;
+}
+
+.slidebar-menu{
+    color: darkred;
+}
+
+.slidebar-menu li{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.active{
+    color: white;
+    background-color: darkred;
+}
+
+.right-content{
+    float: left;
+}
+
+.content-fisrt-row{
+}
+
+.map-title{
+    height: 50px;
 }
 
 .map{
