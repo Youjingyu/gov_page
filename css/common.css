@@ -19,11 +19,21 @@ body{
 
 .calendar-head{
     height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.btn-left,.btn-right{
+    float: left;
+    height: 100%;
+    width: 20px;
+    cursor: pointer;
 }
 
 .date-now{
+    float: left;
     height: 100%;
-    margin: 0 auto;
+    width: 388px;
     text-align: center;
 }
 
