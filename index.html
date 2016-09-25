@@ -73,10 +73,7 @@
                 left: 'left',
                 top: 'bottom',
                 text:['高','低'],           // 文本，默认为数值文本
-                calculable : true,
-                inRange: {
-                    color: ['#121122', 'rgba(3,4,5,0.4)', 'red']
-                }
+                calculable : true
             },
             series: [{
                 name: 'population',
@@ -89,6 +86,11 @@
                     },
                     emphasis: {
                         show: true
+                    }
+                },
+                itemStyle: {
+                    normal:{
+                        areaColor: 'bisque'
                     }
                 },
                 data:[
