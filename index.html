@@ -3,17 +3,14 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Sichuan Map</title>
-    <style>
-        .map{
-            width: 500px;
-            height: 300px;
-        }
-    </style>
-</head>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
 <body>
-    <div class="map" id="map">
+<div class="map" id="map">
 
-    </div>
+</div>
+<div class="calendar" id="calendar">
+    <div class="calendar-head"></div>
+</div>
 </body>
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/echarts.js"></script>
@@ -35,39 +32,39 @@
                 data: ['Population']
             },
             visualMap: {
-            min: 0,
-            max: 2500,
-            left: 'left',
-            top: 'bottom',
-            text:['高','低'],           // 文本，默认为数值文本
-            calculable : true,
-            inRange: {
-                color: ['#121122', 'rgba(3,4,5,0.4)', 'red']
-            }
-        },
-            series: [{
-            name: 'population',
-            type: 'map',
-            map: '四川',
-            roam: false,
-            label: {
-                normal: {
-                    show: false
-                },
-                emphasis: {
-                    show: true
+                min: 0,
+                max: 2500,
+                left: 'left',
+                top: 'bottom',
+                text:['高','低'],           // 文本，默认为数值文本
+                calculable : true,
+                inRange: {
+                    color: ['#121122', 'rgba(3,4,5,0.4)', 'red']
                 }
             },
-            data:[
-                {name: '成都市',value: Math.round(Math.random()*1000)},
-                {name: '自贡市',value: Math.round(Math.random()*1000)},
-                {name: '内江市',value: Math.round(Math.random()*1000)},
-                {name: '达州市',value: Math.round(Math.random()*1000)},
-                {name: '乐山市',value: Math.round(Math.random()*1000)},
-                {name: '宜宾市',value: Math.round(Math.random()*1000)},
-                {name: '攀枝花市',value: Math.round(Math.random()*1000)}
-            ]
-        }]
+            series: [{
+                name: 'population',
+                type: 'map',
+                map: '四川',
+                roam: false,
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: true
+                    }
+                },
+                data:[
+                    {name: '成都市',value: Math.round(Math.random()*1000)},
+                    {name: '自贡市',value: Math.round(Math.random()*1000)},
+                    {name: '内江市',value: Math.round(Math.random()*1000)},
+                    {name: '达州市',value: Math.round(Math.random()*1000)},
+                    {name: '乐山市',value: Math.round(Math.random()*1000)},
+                    {name: '宜宾市',value: Math.round(Math.random()*1000)},
+                    {name: '攀枝花市',value: Math.round(Math.random()*1000)}
+                ]
+            }]
         });
     });
 </script>
