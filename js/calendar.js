@@ -8,7 +8,7 @@ function initDateBox(){
         };
     $('#calendar').find('.date-now').data('data',cur_date);
     for(var i=1; i<43; i++){
-        html+='<div class="date-box"></div>';
+        html+='<div class="date-box"><div class="date-num"></div></div>';
     }
     $('#date-content').html(html);
     fillDateBox();
@@ -72,9 +72,10 @@ function fillDateBox(){
         used_box = week_day_1th+days;
     $('#calendar').find('.date-box').each(function(i){
         var $this = $(this);
-        $this.text('');
+        var $num_box = $this.find('.date-num');
+        $num_box.text('');
         if(i+1 > week_day_1th && i<days+week_day_1th){
-            $this.text(i - week_day_1th +1);
+            $num_box.text(i - week_day_1th +1);
         }
         if(used_box < 35 && i > 34){
             $this.hide();
@@ -103,4 +104,7 @@ $('.btn-left').click(function(){
         cur_date.month = cur_date.month-1;
     }
     fillDateBox()
+});
+$('#calendar').on('click', '.date-box', function(){
+    var $this = $(this);
 });

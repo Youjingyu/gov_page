@@ -5,6 +5,7 @@
     <title>Sichuan Map</title>
     <link rel="stylesheet" type="text/css" href="css/common.css">
 <body>
+<div>
 <div class="top clear-fix">
     <div class="top-left">
         涉密信息系统集成资质管理系统
@@ -94,11 +95,56 @@
         </div>
     </div>
 </div>
+</div>
+<div id="modal">
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-close">
+                ×
+            </div>
+            <div class="modal-header">
+                <div>新建日程</div>
+                <div>日期</div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    开始时间
+                </div>
+                <div>
+                    <input>
+                </div>
+                <div>
+                    结束时间
+                </div>
+                <div>
+                    <input>
+                </div>
+                <div>
+                    主题
+                </div>
+                <div>
+                    <input>
+                </div>
+                <div>
+                    内容
+                </div>
+                <div>
+                    <textarea></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button>确定</button>
+            </div>
+        </div>
+    </div>
+    <div class="mask"></div>
+</div>
 </body>
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/echarts.js"></script>
 <script src="js/sichuan.js"></script>
 <script src="js/calendar.js"></script>
+<script src="js/init.js"></script>
 <script>
     $(document).ready(function() {
         var chart = echarts.init(document.getElementById('map'));
