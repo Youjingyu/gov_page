@@ -1,3 +1,3 @@
 $('.modal-close').click(function(){
-    $('#modal').hide();
+    $('#modal').hide().find('input, textarea').val('');
 });

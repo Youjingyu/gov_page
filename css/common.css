@@ -13,12 +13,8 @@ ul{
     clear: both;
 }
 
-.modal-container{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+#modal{
+    display: none;
 }
 
 .mask{
@@ -51,6 +47,7 @@ ul{
 
 .modal-close{
     float: right;
+    cursor: pointer;
 }
 
 .top{
@@ -154,4 +151,6 @@ ul{
     border-bottom: 1px solid;
     border-right: 1px solid;
     text-align: right;
+    overflow: hidden;
+    cursor: pointer;
 }
