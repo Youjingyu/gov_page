@@ -117,6 +117,7 @@ ul{
 
 .calendar{
     width: 60%;
+    overflow: scroll;
 }
 
 .calendar-title-name{
@@ -181,11 +182,30 @@ ul{
     cursor: pointer;
 }
 
-.week-head>div{
+.week-head>div, .week-tab-content>div, .day-head>div, .day-tab-content>div{
     float: left;
     width: 12.5%;
     border-top: 1px solid;
     border-right: 1px solid;
     text-align: center;
     background-color: aquamarine;
+}
+
+.day-head>div:last-of-type, .day-tab-content>div:last-of-type{
+    width: 87.5%;
+}
+
+.time-content{
+    height: 20px;
+    border-bottom: 1px dotted;
+}
+
+.time-bro{
+    height: 20px;
+    border-bottom: 1px solid;
+}
+
+.time-all-day{
+    height: 40px;
+    border-bottom: 1px solid;
 }
