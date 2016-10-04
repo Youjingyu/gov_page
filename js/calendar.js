@@ -2,22 +2,29 @@ $(document).ready(function() {
     var schedule_data = {
         2016: {
             9: {
-                10: {
+                10: [{
                     start: '11:00',
                     end: '12:00',
                     theme: 'have lunch',
                     content: 'go to first floor to have lunch',
                     allDay: false
-                }
+                }]
             },
             10: {
-                23: {
+                23: [{
                     start: '18:00',
                     end: '19:00',
                     theme: 'get off work',
                     content: 'get off work and go home',
                     allDay: false
-                }
+                }],
+                4: [{
+                    start: '18:00',
+                    end: '19:00',
+                    theme: 'get off work',
+                    content: 'get off work and go home',
+                    allDay: false
+                }]
             }
         }
     };
@@ -39,6 +46,8 @@ $(document).ready(function() {
         $('#calendar_month_tab').find('.month-tab-content').html(html);
         fillDateBox(schedule_data);
     }
+
+    initDateBox();
 
     function getDateData(date_obj, type) {
         var cur_date;
@@ -68,9 +77,37 @@ $(document).ready(function() {
                 sun_date = new Date(cur_date.year, cur_date.month, cur_date.day);
             sat_date.setDate(sat_date.getDate()+(6-cur_week));
             sun_date.setDate(sun_date.getDate()-cur_week);
-            $date_now.text(switchMonthToEn(sun_date.getMonth()) + ' ' + sun_date.getDate() + '-' +
-                switchMonthToEn(sat_date.getMonth()) + ' ' + sat_date.getDate()+ ','+
-                sat_date.getFullYear());
+            var date_now_text = '';
+            if(sat_date.getFullYear() == sun_date.getFullYear()){
+                date_now_text = switchMonthToEn(sun_date.getMonth()) + ' ' + sun_date.getDate() + '-';
+                if(sun_date.getMonth() == sat_date.getMonth()){
+                    date_now_text +=sat_date.getDate();
+                } else{
+                    date_now_text +=switchMonthToEn(sat_date.getMonth()) + ' '+sat_date.getDate();
+                }
+                date_now_text += ','+sat_date.getFullYear();
+            } else{
+                date_now_text = switchMonthToEn(sun_date.getMonth()) + ' ' + sun_date.getDate() + ','+sun_date.getFullYear()+
+                    '-'+switchMonthToEn(sat_date.getMonth()) + ' ' + sat_date.getDate() + ','+sat_date.getFullYear();
+            }
+            $date_now.text(date_now_text);
+            // 在week的head部分绑定日期
+            var year_str,month_str,date_str,
+                $week_head = $('.week-head>div');
+            $('.week-tab-content>.week-tab-col').each(function(i){
+                if(i>1){
+                    sun_date.setDate(sun_date.getDate() + 1);
+                }
+                year_str = sun_date.getFullYear().toString();
+                month_str = (sun_date.getMonth()+1).toString();
+                date_str = sun_date.getDate().toString();
+                $(this).data('date', {
+                    year_str: year_str,
+                    month_str: month_str,
+                    date_str: date_str
+                });
+                $($week_head[i]).find('span').text(month_str+'/'+date_str);
+            });
         } else{
             cur_date.type = 'day';
             $date_now.text(switchMonthToEn(cur_date.month) + '  ' + cur_date.day + ',' + cur_date.year);
@@ -149,8 +186,13 @@ $(document).ready(function() {
                     data[year_str][month_str] &&
                     data[year_str][month_str][date_str];
                 if (isSchedule) {
-                    $this.data('schedule', data[year_str][month_str][date_str]);
-                    $schedule_box.text($this.data('schedule')['theme']);
+                    $this.data('schedule', data[year_str][month_str][date_str])
+                    var schedule_arr = $this.data('schedule'),
+                        schedule_text = schedule_arr[0]['theme'];
+                    for(var j=1; j<schedule_arr.length; j++){
+                        schedule_text+='<br>'+schedule_arr[j]['theme']
+                    }
+                    $schedule_box.text(schedule_text);
                 }
             }
             if (used_box < 35 && i > 34) {
@@ -161,75 +203,161 @@ $(document).ready(function() {
         })
     }
 
-    initDateBox();
+    function fillWeekBox(data){
+        fillCalendarHead('week');
+        $('.week-tab-content>.week-tab-col').each(function(){
+            addScheduleLabel($(this), data);
+        });
+    }
+
+    function fillDayBox(data){
+        fillCalendarHead('day');
+        $('.day-tab-content>.day-tab-col').each(function(){
+            var $this = $(this);
+            var cur_date = $('#calendar').find('.date-now').data('data'),
+                year_str = cur_date.year.toString(),
+                month_str = (cur_date.month+1).toString(),
+                day_str = cur_date.day.toString();
+            $this.data('date', {
+                year_str: year_str,
+                month_str: month_str,
+                date_str: day_str
+            });
+            addScheduleLabel($this, data);
+        });
+    }
+
+    function addScheduleLabel($ele, data){
+        var date = $ele.data('date'),
+            isSchedule = data[date.year_str] &&
+                data[date.year_str][date.month_str] &&
+                data[date.year_str][date.month_str][date.date_str];
+        $ele.find('.week-schedule').remove();
+        if(isSchedule){
+            $ele.data('schedule', data[date.year_str][date.month_str][date.date_str]);
+            var schedule_html = '',
+                schedule_arr = $ele.data('schedule'),
+                start_time, end_time, top, height;
+            for(var j=0; j<schedule_arr.length; j++){
+                start_time = schedule_arr[j]['start'].split(':');
+                end_time = schedule_arr[j]['end'].split(':');
+                start_time[0] = Number(start_time[0]);
+                if(start_time[1] == '30'){
+                    start_time[0] = Number(start_time[0]) + 0.5;
+                } else {
+                    start_time[0] = Number(start_time[0]);
+                }
+                top =  (start_time[0] + 1)*4 +'%';
+                if(end_time[1] == '30'){
+                    end_time[0] = Number(end_time[0]) + 0.5;
+                } else {
+                    end_time[0] = Number(end_time[0]);
+                }
+                height = (end_time[0]-start_time[0])*4 + '%';
+
+                schedule_html = '<div class="week-schedule" style="top:'+top+';min-height:'+height+';">' +
+                    '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
+                    +schedule_arr[j]['theme']+'</div>';
+            }
+            $ele.append(schedule_html);
+        }
+    }
 
     $('#calendar_day').click(function(){
         $('#calendar_month_tab, #calendar_week_tab').hide();
-        fillCalendarHead('day');
+        fillDayBox(schedule_data);
         $('#calendar_day_tab').show();
     });
     $('#calendar_week').click(function(){
         $('#calendar_month_tab, #calendar_day_tab').hide();
-        fillCalendarHead('week');
+        fillWeekBox(schedule_data);
         $('#calendar_week_tab').show();
     });
     $('#calendar_month').click(function(){
         $('#calendar_day_tab, #calendar_week_tab').hide();
-        fillCalendarHead('month');
+        fillDateBox(schedule_data);
         $('#calendar_month_tab').show();
     });
     $('.btn-right').click(function () {
-        var cur_date = $('#calendar').find('.date-now').data('data');
+        var cur_date = $('#calendar').find('.date-now').data('data'),
+            date = new Date(cur_date.year, cur_date.month, cur_date.day);
         if(cur_date.type == 'month'){
-            if (cur_date.month == 12) {
+            if (cur_date.month == 11) {
                 cur_date.year = cur_date.year + 1;
                 cur_date.month = 0;
             } else {
                 cur_date.month = cur_date.month + 1;
             }
             cur_date.day = 1;
-            fillDateBox(schedule_data)
+            fillDateBox(schedule_data);
         } else if(cur_date.type == 'week'){
-
+            date.setDate(date.getDate()+7);
+            cur_date.year = date.getFullYear();
+            cur_date.month = date.getMonth();
+            cur_date.day = date.getDate();
+            fillWeekBox(schedule_data);
         } else{
-
+            date.setDate(date.getDate()+1);
+            cur_date.year = date.getFullYear();
+            cur_date.month = date.getMonth();
+            cur_date.day = date.getDate();
+            fillDayBox(schedule_data);
         }
     });
     $('.btn-left').click(function () {
-        var cur_date = $('#calendar').find('.date-now').data('data');
-        if (cur_date.month == 1) {
-            cur_date.year = cur_date.year - 1;
-            cur_date.month = 11;
-        } else {
-            cur_date.month = cur_date.month - 1;
+        var cur_date = $('#calendar').find('.date-now').data('data'),
+            date = new Date(cur_date.year, cur_date.month, cur_date.day);
+        if(cur_date.type == 'month') {
+            if (cur_date.month == 0) {
+                cur_date.year = cur_date.year - 1;
+                cur_date.month = 11;
+            } else {
+                cur_date.month = cur_date.month - 1;
+            }
+            cur_date.day = 1;
+            fillDateBox(schedule_data);
+        } else if(cur_date.type == 'week'){
+            date.setDate(date.getDate()-7);
+            cur_date.year = date.getFullYear();
+            cur_date.month = date.getMonth();
+            cur_date.day = date.getDate();
+            fillWeekBox(schedule_data);
+        } else{
+            date.setDate(date.getDate()-1);
+            cur_date.year = date.getFullYear();
+            cur_date.month = date.getMonth();
+            cur_date.day = date.getDate();
+            fillDayBox(schedule_data);
         }
-        fillDateBox(schedule_data)
     });
-    $('#calendar').on('click', '.date-box', function () {
+    $('#calendar').on('click', '.date-box, .week-tab-col, .day-tab-col', function () {
         var $this = $(this),
             $modal = $('#modal'),
             cur_date = $this.data('date'),
-            cur_schedule = $this.data('schedule');
-        if ($this.find('.date-num').text() != '') {
-            $modal.find('.modal-header>.modal-date').text('日期' + cur_date.year_str + '年' + cur_date.month_str + '月' + cur_date.date_str + '日');
-            if (cur_schedule) {
-                $modal.find('.modal-body>.modal-start>input').val(cur_schedule['start']);
-                $modal.find('.modal-body>.modal-end>input').val(cur_schedule['end']);
-                $modal.find('.modal-body>.modal-theme>input').val(cur_schedule['theme']);
-                $modal.find('.modal-body>.modal-content>textarea').val(cur_schedule['content']);
-            }
-            $modal.show();
+            cur_schedule;
+        if ($this.attr('class')=='date-box' && $this.find('.date-num').text() == '') {
+            return false;
         }
+        $modal.find('.modal-header>.modal-date').text('日期' + cur_date.year_str + '年' + cur_date.month_str + '月' + cur_date.date_str + '日');
+        if ($this.data('schedule')) {
+            cur_schedule = $this.data('schedule')[0];
+            $modal.find('.modal-body>.modal-start>input').val(cur_schedule['start']);
+            $modal.find('.modal-body>.modal-end>input').val(cur_schedule['end']);
+            $modal.find('.modal-body>.modal-theme>input').val(cur_schedule['theme']);
+            $modal.find('.modal-body>.modal-content>textarea').val(cur_schedule['content']);
+        }
+        $modal.show();
     });
     function initWeekBox(){
         var time_html = '', week_tab_html = '';
         for(var i=0; i<24; i++){
             time_html+='<div class="time-content"></div><div class="time-bro"></div>';
         }
-        time_html = '<div><div class="time-all-day"></div>' + time_html + '</div>';
-        for(var j=0; j<8; j++){
-            week_tab_html = week_tab_html+time_html;
+        for(var j=0; j<7; j++){
+            week_tab_html += '<div class="week-tab-col"><div class="time-all-day"></div>' + time_html + '</div>';
         }
+        time_html = '<div><div class="time-all-day"></div>' + time_html + '</div>';
+        week_tab_html = time_html + week_tab_html;
         $('#week_tab_content').append(week_tab_html).find('div:first').find('.time-content').each(function(i){
             $(this).text(i>9 ? i+':00' : '0'+i+':00');
         });
@@ -242,8 +370,8 @@ $(document).ready(function() {
         for(var i=0; i<24; i++){
             day_html+='<div class="time-content"></div><div class="time-bro"></div>';
         }
-        day_html = '<div><div class="time-all-day"></div>' + day_html + '</div>';
-        day_tab_html = day_html + day_html;
+        day_tab_html = '<div><div class="time-all-day"></div>' + day_html + '</div>'+
+            '<div class="day-tab-col"><div class="time-all-day"></div>' + day_html + '</div>';
         $('#day_tab_content').append(day_tab_html).find('div:first').find('.time-content').each(function(i){
             $(this).text(i>9 ? i+':00' : '0'+i+':00');
         });

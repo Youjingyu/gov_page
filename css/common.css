@@ -191,6 +191,10 @@ ul{
     background-color: aquamarine;
 }
 
+.week-tab-col, .day-tab-col{
+    position: relative;
+}
+
 .day-head>div:last-of-type, .day-tab-content>div:last-of-type{
     width: 87.5%;
 }
@@ -208,4 +212,10 @@ ul{
 .time-all-day{
     height: 40px;
     border-bottom: 1px solid;
+}
+
+.week-schedule{
+    position: absolute;
+    width: 100%;
+    background-color: beige;
 }
