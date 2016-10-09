@@ -18,13 +18,21 @@ $(document).ready(function() {
                     content: 'get off work and go home',
                     allDay: false
                 }],
-                4: [{
+                8: [{
                     start: '18:00',
                     end: '19:00',
                     theme: 'get off work',
                     content: 'get off work and go home',
                     allDay: false
-                }]
+                    },
+                    {
+                        start: '13:00',
+                        end: '15:00',
+                        theme: 'get off work',
+                        content: 'get off work and go home',
+                        allDay: true
+                    }
+                ]
             }
         }
     };
@@ -95,7 +103,7 @@ $(document).ready(function() {
             var year_str,month_str,date_str,
                 $week_head = $('.week-head>div');
             $('.week-tab-content>.week-tab-col').each(function(i){
-                if(i>1){
+                if(i>0){
                     sun_date.setDate(sun_date.getDate() + 1);
                 }
                 year_str = sun_date.getFullYear().toString();
@@ -106,7 +114,7 @@ $(document).ready(function() {
                     month_str: month_str,
                     date_str: date_str
                 });
-                $($week_head[i]).find('span').text(month_str+'/'+date_str);
+                $($week_head[i+1]).find('span').text(month_str+'/'+date_str);
             });
         } else{
             cur_date.type = 'day';
@@ -239,25 +247,31 @@ $(document).ready(function() {
                 schedule_arr = $ele.data('schedule'),
                 start_time, end_time, top, height;
             for(var j=0; j<schedule_arr.length; j++){
-                start_time = schedule_arr[j]['start'].split(':');
-                end_time = schedule_arr[j]['end'].split(':');
-                start_time[0] = Number(start_time[0]);
-                if(start_time[1] == '30'){
-                    start_time[0] = Number(start_time[0]) + 0.5;
-                } else {
+                if(schedule_arr[j]['allDay'] == false){
+                    start_time = schedule_arr[j]['start'].split(':');
+                    end_time = schedule_arr[j]['end'].split(':');
                     start_time[0] = Number(start_time[0]);
-                }
-                top =  (start_time[0] + 1)*4 +'%';
-                if(end_time[1] == '30'){
-                    end_time[0] = Number(end_time[0]) + 0.5;
-                } else {
-                    end_time[0] = Number(end_time[0]);
-                }
-                height = (end_time[0]-start_time[0])*4 + '%';
+                    if(start_time[1] == '30'){
+                        start_time[0] = Number(start_time[0]) + 0.5;
+                    } else {
+                        start_time[0] = Number(start_time[0]);
+                    }
+                    top =  (start_time[0] + 1)*4 +'%';
+                    if(end_time[1] == '30'){
+                        end_time[0] = Number(end_time[0]) + 0.5;
+                    } else {
+                        end_time[0] = Number(end_time[0]);
+                    }
+                    height = (end_time[0]-start_time[0])*4 + '%';
 
-                schedule_html = '<div class="week-schedule" style="top:'+top+';min-height:'+height+';">' +
-                    '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
-                    +schedule_arr[j]['theme']+'</div>';
+                    schedule_html += '<div class="week-schedule" style="top:'+top+';min-height:'+height+';">' +
+                        '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
+                        +schedule_arr[j]['theme']+'</div>';
+                } else{
+                    schedule_html += '<div class="week-schedule" style="top: 0 ;min-height: 4%">' +
+                        '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
+                        +schedule_arr[j]['theme']+'</div>';
+                }
             }
             $ele.append(schedule_html);
         }
