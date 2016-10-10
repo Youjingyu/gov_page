@@ -5,13 +5,47 @@
     <title>Sichuan Map</title>
     <link rel="stylesheet" type="text/css" href="css/common.css">
 <body>
+<script>
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+        //resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 12.5 * (clientWidth / 1200) + 'px';
+                };
+        if (doc.addEventListener){
+            win.addEventListener('resize', recalc, false);
+            //doc.addEventListener('DOMContentLoaded', recalc, false);
+        } else{
+            win.attachEvent('onresize', recalc);
+            //doc.attachEvent('onDOMContentLoaded', recalc);
+        }
+        recalc();
+    })(document, window);
+</script>
 <div>
 <div class="top clear-fix">
     <div class="top-left">
-        涉密信息系统集成资质管理系统
+        <img src="img/logo.png">
     </div>
     <div class="top-right">
-        信息
+        <div class="top-manager">
+            超级管理员<br>
+            PM 1:24
+        </div>
+        <div class="top-user">
+            <img src="img/user.png">
+        </div>
+        <div>
+            <img src="img/nav_icon_03_b.png">
+        </div>
+        <div>
+            <img src="img/nav_icon_02_b.png">
+        </div>
+        <div>
+            <img src="img/nav_icon_01_b.png">
+        </div>
     </div>
 </div>
 <div class="top-bottom"></div>
@@ -78,6 +112,75 @@
         <div class="content-fisrt-row">
             <div class="function-module">
                 <div class="module-head">
+                    <div>
+                        <img src="img/yewu_icon.png">
+                    </div>
+                    <div>
+                        业务功能入口
+                    </div>
+                </div>
+                <div class="function-body">
+                    <div class="clear-fix function-item-row">
+                        <div class="function-item">
+                            <div class="item-icon accept"></div>
+                            <br>
+                            业务受理
+                        </div>
+                        <div class="function-item">
+                            <div class="item-icon manage"></div>
+                            <br>
+                            业务办理
+                        </div>
+                        <div class="function-item">
+                            <div class="item-icon review"></div>
+                            <br>
+                            业务审查
+                        </div>
+                        <div class="function-item">
+                            <div class="item-icon site"></div>
+                            <br>
+                            现场审查
+                        </div>
+                    </div>
+                    <div class="clear-fix function-item-row">
+                        <div class="function-item">
+                            <div class="item-icon expert-review"></div>
+                            <br>
+                            专家评审
+                        </div>
+                        <div class="function-item">
+                            <div class="item-icon result"></div>
+                            <br>
+                            审批结果
+                        </div>
+                        <div class="function-item">
+                            <div class="item-icon project"></div>
+                            <br>
+                            备案项目
+                        </div>
+                        <div class="function-item">
+                            <div class="item-icon other"></div>
+                            <br>
+                            其他工作
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-module">
+                <div class="module-head">
+                    <div>
+                        <img src="img/gonggao_icon.png">
+                    </div>
+                    <div>
+                        公告栏信息
+                    </div>
+                </div>
+            </div>
+            <div class="info-body">
+                <div class="info-row">
+
+                </div>
+                <div class="info-row">
 
                 </div>
             </div>
@@ -261,4 +364,12 @@
     });*/
 </script>
 <script src="js/rem.js"></script>
+<script>
+    if (navigator.appName === 'Microsoft Internet Explorer') { //判断是否是IE浏览器
+        if (navigator.userAgent.match(/Trident/i) && navigator.userAgent.match(/MSIE 8.0/i)) { //判断浏览器内核是否为Trident内核IE8.0
+            $('.module-head').addClass('ie-hack-gradient');
+            $('.item-icon').addClass('ie8-back');
+        }
+    }
+</script>
 </html>
