@@ -5,32 +5,36 @@ $(document).ready(function() {
                 10: [{
                     start: '11:00',
                     end: '12:00',
-                    theme: 'have lunch',
-                    content: 'go to first floor to have lunch',
-                    allDay: false
+                    theme: '部门早会',
+                    content: 'have lunch',
+                    allDay: false,
+                    level: 1
                 }]
             },
             10: {
                 23: [{
                     start: '18:00',
                     end: '19:00',
-                    theme: 'get off work',
-                    content: 'get off work and go home',
-                    allDay: false
+                    theme: '部门周报',
+                    content: 'go home',
+                    allDay: false,
+                    level: 2
                 }],
                 8: [{
                     start: '18:00',
                     end: '19:00',
-                    theme: 'get off work',
-                    content: 'get off work and go home',
-                    allDay: false
+                    theme: '项目加班',
+                    content: 'get off work',
+                    allDay: false,
+                    level: 3
                     },
                     {
                         start: '13:00',
                         end: '15:00',
-                        theme: 'get off work',
-                        content: 'get off work and go home',
-                        allDay: true
+                        theme: '每月总结',
+                        content: 'get off work',
+                        allDay: false,
+                        level: 4
                     }
                 ]
             }
@@ -49,7 +53,7 @@ $(document).ready(function() {
             };
         $('#calendar').find('.date-now').data('data', cur_date);
         for (var i = 1; i < 43; i++) {
-            html += '<div class="date-box"><div class="date-num"></div><div class="date-schedule"></div></div>';
+            html += '<div class="date-box"><div class="date-content"><div class="date-text"><div class="date-num"></div><div class="date-schedule"></div></div></div></div>';
         }
         $('#calendar_month_tab').find('.month-tab-content').html(html);
         fillDateBox(schedule_data);
@@ -77,7 +81,7 @@ $(document).ready(function() {
             cur_date = $date_now.data('data');
         if(type == 'month'){
             cur_date.type = 'month';
-            $date_now.text(switchMonthToEn(cur_date.month) + '  ' + cur_date.year);
+            $date_now.text(cur_date.year+ '年' +switchMonthToEn(cur_date.month) + '月');
         } else if(type == 'week'){
             cur_date.type = 'week';
             var cur_week = getDateData(cur_date, 'cur_week'),
@@ -87,16 +91,16 @@ $(document).ready(function() {
             sun_date.setDate(sun_date.getDate()-cur_week);
             var date_now_text = '';
             if(sat_date.getFullYear() == sun_date.getFullYear()){
-                date_now_text = switchMonthToEn(sun_date.getMonth()) + ' ' + sun_date.getDate() + '-';
+                date_now_text = switchMonthToEn(sun_date.getMonth()) + '月' + sun_date.getDate();
                 if(sun_date.getMonth() == sat_date.getMonth()){
-                    date_now_text +=sat_date.getDate();
+                    date_now_text +='-'+sat_date.getDate()+'日';
                 } else{
-                    date_now_text +=switchMonthToEn(sat_date.getMonth()) + ' '+sat_date.getDate();
+                    date_now_text +='日-'+switchMonthToEn(sat_date.getMonth()) + '月'+sat_date.getDate()+'日';
                 }
-                date_now_text += ','+sat_date.getFullYear();
+                date_now_text = sat_date.getFullYear()+'年'+date_now_text;
             } else{
-                date_now_text = switchMonthToEn(sun_date.getMonth()) + ' ' + sun_date.getDate() + ','+sun_date.getFullYear()+
-                    '-'+switchMonthToEn(sat_date.getMonth()) + ' ' + sat_date.getDate() + ','+sat_date.getFullYear();
+                date_now_text = sun_date.getFullYear()+'年'+switchMonthToEn(sun_date.getMonth()) + '月' + sun_date.getDate() +
+                    '日-'+sat_date.getFullYear()+'年'+switchMonthToEn(sat_date.getMonth()) + '月' + sat_date.getDate() + '日';
             }
             $date_now.text(date_now_text);
             // 在week的head部分绑定日期
@@ -118,49 +122,68 @@ $(document).ready(function() {
             });
         } else{
             cur_date.type = 'day';
-            $date_now.text(switchMonthToEn(cur_date.month) + '  ' + cur_date.day + ',' + cur_date.year);
+            $date_now.text(cur_date.year+switchMonthToEn(cur_date.month) + '  ' + cur_date.day + ',');
         }
     }
 
     function switchMonthToEn(month) {
         switch (parseInt(month)) {
             case 0:
-                return 'January';
+                return '1';
                 break;
             case 1:
-                return 'February';
+                return '2';
                 break;
             case 2:
-                return 'March';
+                return '3';
                 break;
             case 3:
-                return 'April';
+                return '4';
                 break;
             case 4:
-                return 'May';
+                return '5';
                 break;
             case 5:
-                return 'June';
+                return '6';
                 break;
             case 6:
-                return 'July';
+                return '7';
                 break;
             case 7:
-                return 'August';
+                return '8';
                 break;
             case 8:
-                return 'September';
+                return '9';
                 break;
             case 9:
-                return 'October';
+                return '10';
                 break;
             case 10:
-                return 'November';
+                return '11';
                 break;
             case 11:
-                return 'December';
+                return '12';
                 break;
         }
+    }
+
+    function switchLevelToCss(level){
+        var result = '';
+        switch (parseInt(level)){
+            case 1:
+                result = 'schedule-level1';
+                break;
+            case 2:
+                result = 'schedule-level2';
+                break;
+            case 3:
+                result = 'schedule-level3';
+                break;
+            case 4:
+                result = 'schedule-level4';
+                break;
+        }
+        return result;
     }
 
     function fillDateBox(data) {
@@ -175,8 +198,10 @@ $(document).ready(function() {
 
         $('#calendar').find('.date-box').each(function (i) {
             var $this = $(this),
+                $date_content = $this.find('.date-content'),
                 $num_box = $this.find('.date-num'),
                 $schedule_box = $this.find('.date-schedule');
+            $date_content.removeClass('schedule-level1 schedule-level2 schedule-level3 schedule-level4');
             $num_box.text('');
             $schedule_box.text('');
 
@@ -194,11 +219,12 @@ $(document).ready(function() {
                     data[year_str][month_str] &&
                     data[year_str][month_str][date_str];
                 if (isSchedule) {
-                    $this.data('schedule', data[year_str][month_str][date_str])
+                    $this.data('schedule', data[year_str][month_str][date_str]);
                     var schedule_arr = $this.data('schedule'),
-                        schedule_text = schedule_arr[0]['theme'];
-                    for(var j=1; j<schedule_arr.length; j++){
-                        schedule_text+='<br>'+schedule_arr[j]['theme']
+                        schedule_text = '';
+                    for(var j=0; j<schedule_arr.length; j++){
+                        $date_content.addClass(switchLevelToCss(schedule_arr[j]['level']));
+                        schedule_text+=schedule_arr[j]['theme']
                     }
                     $schedule_box.text(schedule_text);
                 }

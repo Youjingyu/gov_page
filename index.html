@@ -49,7 +49,7 @@
     </div>
 </div>
 <div class="top-bottom"></div>
-<div class="main">
+<div class="main clear-fix">
     <div class="slidebar">
         <ul class="slidebar-menu">
             <li class="index active">
@@ -57,7 +57,7 @@
                     <div>
                         <img class="slidebar-icon" src="img/left_icon_0.png">
                     </div>
-                    <div>首&nbsp;&nbsp;页</div>
+                    <div>首<span style="visibility: hidden">首页</span>页</div>
                     <div>&gt;</div>
                 </a>
             </li>
@@ -109,7 +109,7 @@
         </ul>
     </div>
     <div class="right-content">
-        <div class="content-fisrt-row">
+        <div class="content-fisrt-row clear-fix">
             <div class="function-module">
                 <div class="module-head">
                     <div>
@@ -175,77 +175,97 @@
                         公告栏信息
                     </div>
                 </div>
-            </div>
-            <div class="info-body">
-                <div class="info-row">
-
-                </div>
-                <div class="info-row">
-
+                <div class="info-body">
+                    <div class="info-row">
+                        <div class="info-date">
+                            <div class="info-date-day">
+                                5
+                            </div>
+                            <div class="info-date-month">
+                                2016-9
+                            </div>
+                        </div>
+                        <div class="info-text">
+                            <h3>涉密信息系统集成资质管理办法</h3>
+                            <p>
+                                为加强涉密信息系统集成资质管理，确保国家机密安全，根据目前我国颁布的《中华人民共和国保守国家秘密法》和有关法律法规的严格要求，做到保密中的实际要求达标...
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-date">
+                            <div class="info-date-day">
+                                4
+                            </div>
+                            <div class="info-date-month">
+                                2016-9
+                            </div>
+                        </div>
+                        <div class="info-text">
+                            <h3>信息系统升级完成</h3>
+                            <p>
+                                根据本单位正在使用的系统程序老化，研究决定进行系统升级和改版计划在本月已经完成新版已上线！
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!--<div class="content-second-row">
-            <div class="map-content">
-                <div class="map-title">
-                    地区资质情况
-                </div>
-                <div class="map" id="map">
-
-                </div>
-            </div>
-            <div class="function-entrance">
-
-            </div>
+        <div class="content-second-row">
             <div class="calendar" id="calendar">
-                <div class="calendar-title clear-fix">
-                    <div class="calendar-title-name">工作安排</div>
+                <div class="module-head">
+                    <div>
+                        <img src="img/rili_icon.png">
+                    </div>
+                    <div>
+                        工作安排
+                    </div>
                     <div class="calendar-title-btn">
-                        <button id="calendar_day">day</button>
-                        <button id="calendar_week">week</button>
-                        <button id="calendar_month">month</button>
+                        <div id="calendar_day">天</div>
+                        <div id="calendar_week">周</div>
+                        <div id="calendar_month">月</div>
                     </div>
                 </div>
                 <div class="calendar-head clear-fix">
                     <div class="btn-left">
-                        &lt;
+                        <img src="img/next.png">
                     </div>
                     <div class="date-now">
                     </div>
                     <div class="btn-right">
-                        &gt;
+                        <img src="img/pre.png">
                     </div>
                 </div>
-                <div id="calendar_month_tab">
+                <div id="calendar_month_tab" class="calendar-tab">
                     <div class="month-head clear-fix">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
+                        <div>周日</div>
+                        <div>周一</div>
+                        <div>周二</div>
+                        <div>周三</div>
+                        <div>周四</div>
+                        <div>周五</div>
+                        <div>周六</div>
                     </div>
                     <div class="month-tab-content clear-fix">
 
                     </div>
                 </div>
-                <div id="calendar_week_tab" style="display: none">
+                <div id="calendar_week_tab" class="calendar-tab" style="display: none">
                     <div class="week-head clear-fix">
                         <div></div>
-                        <div>Sun<span></span></div>
-                        <div>Mon<span></span></div>
-                        <div>Tue<span></span></div>
-                        <div>Wed<span></span></div>
-                        <div>Thu<span></span></div>
-                        <div>Fri<span></span></div>
-                        <div>Sat<span></span></div>
+                        <div>周日<span></span></div>
+                        <div>周一<span></span></div>
+                        <div>周二<span></span></div>
+                        <div>周三<span></span></div>
+                        <div>周四<span></span></div>
+                        <div>周五<span></span></div>
+                        <div>周六<span></span></div>
                     </div>
                     <div class="week-tab-content clear-fix" id="week_tab_content">
 
                     </div>
                 </div>
-                <div id="calendar_day_tab" style="display: none">
+                <div id="calendar_day_tab" class="calendar-tab" style="display: none">
                     <div class="day-head clear-fix">
                         <div></div>
                         <div>date</div>
@@ -255,7 +275,28 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+            <div class="map-content">
+                <div class="module-head">
+                    <div>
+                        <img src="img/map_icon.png">
+                    </div>
+                    <div>
+                        地区资质情况
+                    </div>
+                </div>
+                <div class="map">
+                    <div id="map">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot">
+    <div>网站主办：国家保密局 金城出版社</div>
+    <div>
+        Copyright 2015-2020 GoldWallPress. All Rights Reserved.中国保密在线www.baomi.org京ICP备06006466
     </div>
 </div>
 </div>
@@ -306,31 +347,38 @@
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/echarts.js"></script>
 <script src="js/sichuan.js"></script>
-<!--<script src="js/calendar.js"></script>-->
+<script src="js/calendar.js"></script>
 <script src="js/init.js"></script>
 <script>
-    /*$(document).ready(function() {
+    $(document).ready(function() {
         var chart = echarts.init(document.getElementById('map'));
-        chart.setOption({
-            title: {
-                text: 'Sichuan Population',
-                left: 'center'
-            },
+        var data = [
+            {name: '成都市',value: 2000},
+            {name: '自贡市',value: 1800},
+            {name: '内江市',value: 1700},
+            {name: '达州市',value: 1300},
+            {name: '乐山市',value: 1100},
+            {name: '宜宾市',value: 1000},
+            {name: '攀枝花市',value: 800}
+        ];
+        var mapOption = {
             tooltip: {
                 trigger: 'item'
             },
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['Population']
+                tooltip: {
+                    show: true
+                }
             },
             visualMap: {
                 min: 0,
                 max: 2500,
-                left: 'left',
-                top: 'bottom',
-                text:['高','低'],           // 文本，默认为数值文本
-                calculable : true
+                show: false,
+                inRange: {
+                    color: ['#ff7980', '#ffb59a', '#ffd6b8']
+                }
             },
             series: [{
                 name: 'population',
@@ -347,21 +395,18 @@
                 },
                 itemStyle: {
                     normal:{
-                        areaColor: 'bisque'
+                        areaColor: '#ffcdc6',
+                        borderColor: '#ff674d'
                     }
                 },
-                data:[
-                    {name: '成都市',value: Math.round(Math.random()*1000)},
-                    {name: '自贡市',value: Math.round(Math.random()*1000)},
-                    {name: '内江市',value: Math.round(Math.random()*1000)},
-                    {name: '达州市',value: Math.round(Math.random()*1000)},
-                    {name: '乐山市',value: Math.round(Math.random()*1000)},
-                    {name: '宜宾市',value: Math.round(Math.random()*1000)},
-                    {name: '攀枝花市',value: Math.round(Math.random()*1000)}
-                ]
+                data:data
             }]
+        };
+        chart.setOption(mapOption);
+        $('window').resize(function(){
+            chart.setOption(mapOption);
         });
-    });*/
+    });
 </script>
 <script src="js/rem.js"></script>
 <script>
