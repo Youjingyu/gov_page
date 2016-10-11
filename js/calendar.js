@@ -122,7 +122,7 @@ $(document).ready(function() {
             });
         } else{
             cur_date.type = 'day';
-            $date_now.text(cur_date.year+switchMonthToEn(cur_date.month) + '  ' + cur_date.day + ',');
+            $date_now.text(cur_date.year+'年'+switchMonthToEn(cur_date.month) + '月' + cur_date.day + '日');
         }
     }
 
@@ -290,11 +290,11 @@ $(document).ready(function() {
                     }
                     height = (end_time[0]-start_time[0])*4 + '%';
 
-                    schedule_html += '<div class="week-schedule" style="top:'+top+';min-height:'+height+';">' +
+                    schedule_html += '<div class="week-schedule '+switchLevelToCss(schedule_arr[j]['level'])+'" style="top:'+top+';min-height:'+height+';">' +
                         '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
                         +schedule_arr[j]['theme']+'</div>';
                 } else{
-                    schedule_html += '<div class="week-schedule" style="top: 0 ;min-height: 4%">' +
+                    schedule_html += '<div class="week-schedule '+switchLevelToCss(schedule_arr[j]['level'])+'" style="top: 0 ;min-height: 4%">' +
                         '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
                         +schedule_arr[j]['theme']+'</div>';
                 }
@@ -378,16 +378,25 @@ $(document).ready(function() {
         if ($this.attr('class')=='date-box' && $this.find('.date-num').text() == '') {
             return false;
         }
-        $modal.find('.modal-header>.modal-date').text('日期' + cur_date.year_str + '年' + cur_date.month_str + '月' + cur_date.date_str + '日');
+        $modal.find('.modal-header>.modal-date').data('date', cur_date).
+            text('日期' + cur_date.year_str + '年' + cur_date.month_str + '月' + cur_date.date_str + '日');
         if ($this.data('schedule')) {
             cur_schedule = $this.data('schedule')[0];
             $modal.find('.modal-body>.modal-start>input').val(cur_schedule['start']);
             $modal.find('.modal-body>.modal-end>input').val(cur_schedule['end']);
             $modal.find('.modal-body>.modal-theme>input').val(cur_schedule['theme']);
-            $modal.find('.modal-body>.modal-content>textarea').val(cur_schedule['content']);
+            $modal.find('.modal-body>.modal-detail>textarea').val(cur_schedule['content']);
         }
         $modal.show();
     });
+    $('#modal_confirm').click(function(){
+        var $modal = $('#modal');
+        var schedule_obj = {
+
+        }
+    });
+
+
     function initWeekBox(){
         var time_html = '', week_tab_html = '';
         for(var i=0; i<24; i++){

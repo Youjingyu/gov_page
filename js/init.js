@@ -9,4 +9,10 @@ $(document).ready(function() {
     $('.modal-close').click(function () {
         $('#modal').hide().find('input, textarea').val('');
     });
+    $('.slidebar-menu').on('mouseenter', 'li', function(){
+        $(this).addClass('active');
+    });
+    $('.slidebar-menu').on('mouseleave', 'li', function(){
+        $(this).removeClass('active');
+    });
 });

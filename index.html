@@ -52,10 +52,10 @@
 <div class="main clear-fix">
     <div class="slidebar">
         <ul class="slidebar-menu">
-            <li class="index active">
+            <li class="index cur-page">
                 <a>
                     <div>
-                        <img class="slidebar-icon" src="img/left_icon_0.png">
+                        <i></i>
                     </div>
                     <div>首<span style="visibility: hidden">首页</span>页</div>
                     <div>&gt;</div>
@@ -64,7 +64,7 @@
             <li class="source">
                 <a>
                     <div>
-                        <img class="slidebar-icon" src="img/left_icon_b_01.png">
+                        <i></i>
                     </div>
                     <div>资质管理</div>
                     <div></div>
@@ -73,7 +73,7 @@
             <li class="data-statistic">
                 <a>
                     <div>
-                        <img class="slidebar-icon" src="img/left_icon_b_02.png">
+                        <i></i>
                     </div>
                     <div>数据统计</div>
                     <div></div>
@@ -82,7 +82,7 @@
             <li class="book">
                 <a>
                     <div>
-                        <img class="slidebar-icon" src="img/left_icon_b_03.png">
+                        <i></i>
                     </div>
                     <div>制式文书</div>
                     <div></div>
@@ -91,7 +91,7 @@
             <li class="information">
                 <a>
                     <div>
-                        <img class="slidebar-icon" src="img/left_icon_b_04.png">
+                        <i></i>
                     </div>
                     <div>公示信息</div>
                     <div></div>
@@ -100,7 +100,7 @@
             <li class="history">
                 <a>
                     <div>
-                        <img class="slidebar-icon" src="img/left_icon_b_05.png">
+                        <i></i>
                     </div>
                     <div>历史档案</div>
                     <div>&gt;</div>
@@ -233,7 +233,7 @@
                     <div class="date-now">
                     </div>
                     <div class="btn-right">
-                        <img src="img/pre.png">
+                        <img src="img/next.png">
                     </div>
                 </div>
                 <div id="calendar_month_tab" class="calendar-tab">
@@ -253,23 +253,23 @@
                 <div id="calendar_week_tab" class="calendar-tab" style="display: none">
                     <div class="week-head clear-fix">
                         <div></div>
-                        <div>周日<span></span></div>
-                        <div>周一<span></span></div>
-                        <div>周二<span></span></div>
-                        <div>周三<span></span></div>
-                        <div>周四<span></span></div>
-                        <div>周五<span></span></div>
-                        <div>周六<span></span></div>
+                        <div>周日<br><span></span></div>
+                        <div>周一<br><span></span></div>
+                        <div>周二<br><span></span></div>
+                        <div>周三<br><span></span></div>
+                        <div>周四<br><span></span></div>
+                        <div>周五<br><span></span></div>
+                        <div>周六<br><span></span></div>
                     </div>
                     <div class="week-tab-content clear-fix" id="week_tab_content">
 
                     </div>
                 </div>
                 <div id="calendar_day_tab" class="calendar-tab" style="display: none">
-                    <div class="day-head clear-fix">
-                        <div></div>
-                        <div>date</div>
-                    </div>
+                    <!--<div class="day-head clear-fix">-->
+                        <!--<div></div>-->
+                        <!--<div>date</div>-->
+                    <!--</div>-->
                     <div class="day-tab-content clear-fix" id="day_tab_content">
 
                     </div>
@@ -300,7 +300,7 @@
     </div>
 </div>
 </div>
-<!--<div id="modal">
+<div id="modal">
     <div class="modal">
         <div class="modal-content">
             <div class="modal-close">
@@ -316,12 +316,24 @@
                 </div>
                 <div class="modal-start">
                     <input>
+                    &nbsp;时
+                    <select>
+                        <option>00</option>
+                        <option>30</option>
+                    </select>
+                    &nbsp;分
                 </div>
                 <div>
                     结束时间
                 </div>
                 <div class="modal-end">
                     <input>
+                    &nbsp;时
+                    <select>
+                        <option>00</option>
+                        <option>30</option>
+                    </select>
+                    &nbsp;分
                 </div>
                 <div>
                     主题
@@ -332,17 +344,17 @@
                 <div>
                     内容
                 </div>
-                <div class="modal-content">
+                <div class="modal-detail">
                     <textarea></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button>确定</button>
+                <button id="modal_confirm">确定</button>
             </div>
         </div>
     </div>
     <div class="mask"></div>
-</div>-->
+</div>
 </body>
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/echarts.js"></script>
