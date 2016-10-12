@@ -6,13 +6,14 @@ $(document).ready(function() {
         var $this = $(this);
         $this.height(calendar_width/6);
     });*/
-    $('.modal-close').click(function () {
-        $('#modal').hide().find('input, textarea').val('');
-    });
     $('.slidebar-menu').on('mouseenter', 'li', function(){
         $(this).addClass('active');
-    });
-    $('.slidebar-menu').on('mouseleave', 'li', function(){
+    }).on('mouseleave', 'li', function(){
         $(this).removeClass('active');
+    });
+    $('.function-body').on('mouseenter', '.function-item', function(){
+        $(this).addClass('item-active');
+    }).on('mouseleave', '.function-item', function(){
+        $(this).removeClass('item-active');
     });
 });

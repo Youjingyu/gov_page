@@ -30,7 +30,7 @@ $(document).ready(function() {
                     },
                     {
                         start: '13:00',
-                        end: '15:00',
+                        end: '15:30',
                         theme: '每月总结',
                         content: 'get off work',
                         allDay: false,
@@ -304,16 +304,22 @@ $(document).ready(function() {
     }
 
     $('#calendar_day').click(function(){
+        $('.calendar-btn-active').removeClass('calendar-btn-active');
+        $(this).addClass('calendar-btn-active');
         $('#calendar_month_tab, #calendar_week_tab').hide();
         fillDayBox(schedule_data);
         $('#calendar_day_tab').show();
     });
     $('#calendar_week').click(function(){
+        $('.calendar-btn-active').removeClass('calendar-btn-active');
+        $(this).addClass('calendar-btn-active');
         $('#calendar_month_tab, #calendar_day_tab').hide();
         fillWeekBox(schedule_data);
         $('#calendar_week_tab').show();
     });
     $('#calendar_month').click(function(){
+        $('.calendar-btn-active').removeClass('calendar-btn-active');
+        $(this).addClass('calendar-btn-active');
         $('#calendar_day_tab, #calendar_week_tab').hide();
         fillDateBox(schedule_data);
         $('#calendar_month_tab').show();
@@ -373,29 +379,100 @@ $(document).ready(function() {
     $('#calendar').on('click', '.date-box, .week-tab-col, .day-tab-col', function () {
         var $this = $(this),
             $modal = $('#modal'),
-            cur_date = $this.data('date'),
-            cur_schedule;
+            cur_date = $this.data('date');
+        // 保存当前的日期类型
+        cur_date.type = $('#calendar').find('.date-now').data('data').type;
         if ($this.attr('class')=='date-box' && $this.find('.date-num').text() == '') {
             return false;
         }
         $modal.find('.modal-header>.modal-date').data('date', cur_date).
-            text('日期' + cur_date.year_str + '年' + cur_date.month_str + '月' + cur_date.date_str + '日');
+            text('日期：' + cur_date.year_str + '年' + cur_date.month_str + '月' + cur_date.date_str + '日');
         if ($this.data('schedule')) {
-            cur_schedule = $this.data('schedule')[0];
-            $modal.find('.modal-body>.modal-start>input').val(cur_schedule['start']);
-            $modal.find('.modal-body>.modal-end>input').val(cur_schedule['end']);
-            $modal.find('.modal-body>.modal-theme>input').val(cur_schedule['theme']);
-            $modal.find('.modal-body>.modal-detail>textarea').val(cur_schedule['content']);
+            var select_option = '', $option, schedule_arr = $this.data('schedule');
+            var $select = $modal.find('#schedule_list');
+            for(var i= 0, len =schedule_arr.length; i<len; i++){
+                select_option = '<option>'+ schedule_arr[i].theme +'</option>';
+                $option = $(select_option);
+                $option.data('schedule', schedule_arr[i]);
+                $select.append($option);
+            }
         }
         $modal.show();
     });
-    $('#modal_confirm').click(function(){
-        var $modal = $('#modal');
-        var schedule_obj = {
-
+    $('#schedule_list').change(function(){
+        var $cur_option = $('#schedule_list').find('option:selected');
+        if($cur_option.data('schedule')){
+            fillModal(false, $cur_option.data('schedule'))
+        } else{
+            fillModal(true);
         }
     });
+    $('#modal_save').click(function(){
+        var schedule_arr = [];
+        $('#schedule_list').find('option').each(function(i){
+            if(i>0){
+                var $this = $(this);
+                schedule_arr.push($this.data('schedule'));
+                $this.remove();
+            }
+        });
+        var $modal = $('#modal'),
+            cur_date = $modal.find('.modal-header>.modal-date').data('date');
+        if(schedule_arr.length == 0){
+            delete schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str]
+        } else{
+            schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str] = schedule_arr;
+        }
+        if(cur_date.type == 'month'){
+            fillDateBox(schedule_data);
+        } else if(cur_date.type == 'week'){
+            fillWeekBox(schedule_data);
+        } else{
+            fillDayBox(schedule_data);
+        }
+        $modal.hide();
+    });
+    $('#modal_delete').click(function(){
+        var $schedule_list = $('#schedule_list'),
+            $cur_option = $schedule_list.find('option:selected');
+        if($cur_option.val() != -1){
+            $cur_option.remove();
+            $schedule_list.val(-1);
+            fillModal(true);
+        }
+    });
+    $('#modal_add').click(function(){
+        var $modal_body = $('.modal-body');
+        var schedule_obj = {
+            start: $modal_body.find('.modal-start>input').val() + $modal_body.find('.modal-start>select').val()==0?'00':'30',
+            end: $modal_body.find('.modal-end>input').val() + $modal_body.find('.modal-end>select').val()==0?'00':'30',
+            theme: $modal_body.find('.modal-theme>input').val(),
+            content: $modal_body.find('.modal-detail>textarea').val(),
+            level:1,
+            allDay: false
+        }
+    });
+    $('.modal-close').click(function () {
+        var $modal = $('#modal');
+        $modal.hide().find('input, textarea').val('');
+        $modal.find('#schedule_list').empty().append('<option value="-1">新建日程</option>');
+    });
 
+    function fillModal(isClear, data){
+        var $modal = $('#modal');
+        if(isClear == true){
+            $modal.find('input, textarea').val('');
+        } else{
+            var start_time = data['start'].split(':'),
+                end_time = data['end'].split(':');
+            $modal.find('.modal-body>.modal-start>input').val(start_time[0]);
+            $modal.find('.modal-body>.modal-start>select').val(start_time[1] == '00' ? 0 : 1);
+            $modal.find('.modal-body>.modal-end>input').val(end_time[0]);
+            $modal.find('.modal-body>.modal-end>select').val(end_time[1] == '00' ? 0 : 1);
+            $modal.find('.modal-body>.modal-theme>input').val(data['theme']);
+            $modal.find('.modal-body>.modal-detail>textarea').val(data['content']);
+        }
+    }
 
     function initWeekBox(){
         var time_html = '', week_tab_html = '';

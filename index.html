@@ -223,7 +223,7 @@
                     <div class="calendar-title-btn">
                         <div id="calendar_day">天</div>
                         <div id="calendar_week">周</div>
-                        <div id="calendar_month">月</div>
+                        <div id="calendar_month" class="calendar-btn-active">月</div>
                     </div>
                 </div>
                 <div class="calendar-head clear-fix">
@@ -233,7 +233,7 @@
                     <div class="date-now">
                     </div>
                     <div class="btn-right">
-                        <img src="img/next.png">
+                        <img src="img/pre.png">
                     </div>
                 </div>
                 <div id="calendar_month_tab" class="calendar-tab">
@@ -307,41 +307,49 @@
                 ×
             </div>
             <div class="modal-header">
-                <div>新建日程</div>
-                <div class="modal-date"></div>
+                <h3>日程管理</h3>
+                <div class="modal-date modal-text"></div>
             </div>
             <div class="modal-body">
+                <div class="modal-text">
+                    日程列表
+                </div>
                 <div>
+                    <select id="schedule_list">
+                        <option value="-1">新建日程</option>
+                    </select>
+                </div>
+                <div class="modal-text">
                     开始时间
                 </div>
                 <div class="modal-start">
                     <input>
                     &nbsp;时
                     <select>
-                        <option>00</option>
-                        <option>30</option>
+                        <option value="0">00</option>
+                        <option value="1">30</option>
                     </select>
                     &nbsp;分
                 </div>
-                <div>
+                <div class="modal-text">
                     结束时间
                 </div>
                 <div class="modal-end">
                     <input>
                     &nbsp;时
                     <select>
-                        <option>00</option>
-                        <option>30</option>
+                        <option value="0">00</option>
+                        <option value="1">30</option>
                     </select>
                     &nbsp;分
                 </div>
-                <div>
+                <div class="modal-text">
                     主题
                 </div>
                 <div class="modal-theme">
                     <input>
                 </div>
-                <div>
+                <div class="modal-text">
                     内容
                 </div>
                 <div class="modal-detail">
@@ -349,7 +357,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="modal_confirm">确定</button>
+                <button id="modal_add">添加</button>
+                <button id="modal_save">保存</button>
+                <button id="modal_delete">删除</button>
             </div>
         </div>
     </div>
@@ -425,7 +435,7 @@
     if (navigator.appName === 'Microsoft Internet Explorer') { //判断是否是IE浏览器
         if (navigator.userAgent.match(/Trident/i) && navigator.userAgent.match(/MSIE 8.0/i)) { //判断浏览器内核是否为Trident内核IE8.0
             $('.module-head').addClass('ie-hack-gradient');
-            $('.item-icon').addClass('ie8-back');
+            $('.item-icon, .slidebar-menu li').addClass('ie8-back');
         }
     }
 </script>

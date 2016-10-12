@@ -10,6 +10,11 @@ div,input,textarea{
     box-sizing: border-box;
 }
 
+input,option,textarea,select{
+    font-family: '微软雅黑', 'Microsoft YaHei', 'Arial', 'sans-serif';
+    font-size: 16px;
+}
+
 ul{
     padding: 0;
     margin: 0;
@@ -43,16 +48,26 @@ i{
 
 .modal{
     position: fixed;
-    z-index: 1000;
+    z-index: 9999;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
 }
 
+.modal h3{
+    margin: 0;
+    font-size: 30px;
+    line-height: 50px;
+}
+
+.modal-text{
+    line-height: 40px;
+}
+
 .modal-content{
-    margin: 10px auto;
-    padding: 10px;
+    margin: 20px auto;
+    padding: 20px;
     width: 40rem;
     background-color: #fff;
 }
@@ -86,11 +101,15 @@ i{
 
 .modal-footer button{
     height: 40px;
-    width: 40%;
+    width: 15%;
     border: 1px solid #ccc;
     border-radius: 3px;
     background-color: #51a2ff;
     font-size: 20px;
+}
+
+#modal_save{
+    margin: 0 10px;
 }
 
 .top{
@@ -238,6 +257,28 @@ i{
     background-image: url("../img/left_icon_b_05.png");
 }
 
+.ie8-back{
+    background: none;
+}
+
+.index.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_0.png',sizingMethod='scale');
+}
+.source.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_b_01.png',sizingMethod='scale');
+}
+.data-statistic.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_b_02.png',sizingMethod='scale');
+}
+.book.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_b_03.png',sizingMethod='scale');
+}
+.information.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_b_04.png',sizingMethod='scale');
+}
+.history.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_b_05.png',sizingMethod='scale');
+}
 
 .active{
     color: #cc0000;
@@ -266,6 +307,22 @@ i{
 }
 .active.history i{
     background-image: url("../img/left_icon_05.png");
+}
+
+.active.source.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_01.png',sizingMethod='scale');
+}
+.active.data-statistic.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_02.png',sizingMethod='scale');
+}
+.active.book.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_03.png',sizingMethod='scale');
+}
+.active.information.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_04.png',sizingMethod='scale');
+}
+.active.history.ie8-back i{
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_05.png',sizingMethod='scale');
 }
 
 
@@ -338,7 +395,7 @@ i{
     width: 2.05rem;
     height: 2.05rem;
 }
-.function-item-active{
+.item-active{
     color: #cc0000;
     background-color: darksalmon;
 }
@@ -346,16 +403,14 @@ i{
     background: url("../img/center_icon_b_01.png");
     background-size: 100%;
 }
-.accept.item-active{
+.item-active .accept{
     background: url("../img/center_icon_01.png");
     background-size: 100%;
 }
 .accept.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_01.png',sizingMethod='scale');
 }
-.accept.item-active.ie8-back{
-    background: none;
+.item-active .accept.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_01.png',sizingMethod='scale');
 }
 
@@ -363,16 +418,14 @@ i{
     background: url("../img/center_icon_b_02.png");
     background-size: 100%;
 }
-.manage.item-active{
+.item-active .manage{
     background: url("../img/center_icon_02.png");
     background-size: 100%;
 }
 .manage.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_02.png',sizingMethod='scale');
 }
-.manage.item-active.ie8-back{
-    background: none;
+.item-active .manage.item-active.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_02.png',sizingMethod='scale');
 }
 
@@ -380,16 +433,14 @@ i{
     background: url("../img/center_icon_b_03.png");
     background-size: 100%;
 }
-.review.item-active{
+.item-active .review{
     background: url("../img/center_icon_03.png");
     background-size: 100%;
 }
 .review.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_03.png',sizingMethod='scale');
 }
-.review.item-active.ie8-back{
-    background: none;
+.item-active .review.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_03.png',sizingMethod='scale');
 }
 
@@ -397,16 +448,14 @@ i{
      background: url("../img/center_icon_b_04.png");
      background-size: 100%;
  }
-.site.item-active{
+.item-active .site{
     background: url("../img/center_icon_04.png");
     background-size: 100%;
 }
 .site.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_04.png',sizingMethod='scale');
 }
-.site.item-active.ie8-back{
-    background: none;
+.item-active .site.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_04.png',sizingMethod='scale');
 }
 
@@ -414,16 +463,14 @@ i{
     background: url("../img/center_icon_b_05.png");
     background-size: 100%;
 }
-.expert-review.item-active{
+.item-active .expert-review{
     background: url("../img/center_icon_05.png");
     background-size: 100%;
 }
 .expert-review.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_05.png',sizingMethod='scale');
 }
-.expert-review.item-active.ie8-back{
-    background: none;
+.item-active .expert-review.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_05.png',sizingMethod='scale');
 }
 
@@ -431,16 +478,14 @@ i{
     background: url("../img/center_icon_b_06.png");
     background-size: 100%;
 }
-.result.item-active{
+.item-active .result{
     background: url("../img/center_icon_06.png");
     background-size: 100%;
 }
 .result.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_06.png',sizingMethod='scale');
 }
-.result.item-active.ie8-back{
-    background: none;
+.item-active .result.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_06.png',sizingMethod='scale');
 }
 
@@ -448,16 +493,14 @@ i{
     background: url("../img/center_icon_b_07.png");
     background-size: 100%;
 }
-.project.item-active{
+.item-active .project{
     background: url("../img/center_icon_07.png");
     background-size: 100%;
 }
 .project.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_07.png',sizingMethod='scale');
 }
-.project.item-active.ie8-back{
-    background: none;
+.item-active .project.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_07.png',sizingMethod='scale');
 }
 
@@ -465,16 +508,14 @@ i{
     background: url("../img/center_icon_b_08.png");
     background-size: 100%;
 }
-.other.item-active{
+.item-active .other{
     background: url("../img/center_icon_08.png");
     background-size: 100%;
 }
 .other.ie8-back{
-    background: none;
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_b_08.png',sizingMethod='scale');
 }
-.other.item-active.ie8-back{
-    background: none;
+.item-active .other.ie8-back{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/center_icon_08.png',sizingMethod='scale');
 }
 
@@ -586,7 +627,7 @@ i{
     cursor: pointer;
 }
 
-.calendar-title-btn>div:hover{
+.calendar-title-btn>.calendar-btn-active{
     background-color: #e32525;
     color: #fff;
 }
@@ -670,10 +711,17 @@ i{
 .date-text{
     display: inline-block;
     line-height: 20px;
+    vertical-align: middle;
+    width: 100%;
+    text-overflow: clip;
+    white-space: nowrap;
 }
 
 .date-schedule{
-    font-size: 16px;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 1rem;
+    width: 4rem;
 }
 
 .schedule-level1{
