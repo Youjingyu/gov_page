@@ -320,28 +320,50 @@
                     </select>
                 </div>
                 <div class="modal-text">
-                    开始时间
+                    任务类型
                 </div>
-                <div class="modal-start">
-                    <input>
-                    &nbsp;时
-                    <select>
-                        <option value="0">00</option>
-                        <option value="1">30</option>
+                <div>
+                    <select id="schedule_type">
+                        <option value="0">时段任务</option>
+                        <option value="1">全天任务</option>
                     </select>
-                    &nbsp;分
                 </div>
                 <div class="modal-text">
-                    结束时间
+                    重要程度
                 </div>
-                <div class="modal-end">
-                    <input>
-                    &nbsp;时
-                    <select>
-                        <option value="0">00</option>
-                        <option value="1">30</option>
+                <div>
+                    <select id="important">
+                        <option value="4">非常重要</option>
+                        <option value="3">重要</option>
+                        <option value="2">一般</option>
+                        <option value="1">不重要</option>
                     </select>
-                    &nbsp;分
+                </div>
+                <div id="time_slot">
+                    <div class="modal-text">
+                        开始时间
+                    </div>
+                    <div class="modal-start">
+                        <input>
+                        &nbsp;时
+                        <select>
+                            <option value="0">00</option>
+                            <option value="1">30</option>
+                        </select>
+                        &nbsp;分
+                    </div>
+                    <div class="modal-text">
+                        结束时间
+                    </div>
+                    <div class="modal-end">
+                        <input>
+                        &nbsp;时
+                        <select>
+                            <option value="0">00</option>
+                            <option value="1">30</option>
+                        </select>
+                        &nbsp;分
+                    </div>
                 </div>
                 <div class="modal-text">
                     主题

@@ -7,7 +7,7 @@ $(document).ready(function() {
                     end: '12:00',
                     theme: '部门早会',
                     content: 'have lunch',
-                    allDay: false,
+                    allDay: 0,
                     level: 1
                 }]
             },
@@ -17,7 +17,7 @@ $(document).ready(function() {
                     end: '19:00',
                     theme: '部门周报',
                     content: 'go home',
-                    allDay: false,
+                    allDay: 0,
                     level: 2
                 }],
                 8: [{
@@ -25,7 +25,7 @@ $(document).ready(function() {
                     end: '19:00',
                     theme: '项目加班',
                     content: 'get off work',
-                    allDay: false,
+                    allDay: 1,
                     level: 3
                     },
                     {
@@ -33,7 +33,7 @@ $(document).ready(function() {
                         end: '15:30',
                         theme: '每月总结',
                         content: 'get off work',
-                        allDay: false,
+                        allDay: 0,
                         level: 4
                     }
                 ]
@@ -273,7 +273,7 @@ $(document).ready(function() {
                 schedule_arr = $ele.data('schedule'),
                 start_time, end_time, top, height;
             for(var j=0; j<schedule_arr.length; j++){
-                if(schedule_arr[j]['allDay'] == false){
+                if(schedule_arr[j]['allDay'] == 0){
                     start_time = schedule_arr[j]['start'].split(':');
                     end_time = schedule_arr[j]['end'].split(':');
                     start_time[0] = Number(start_time[0]);
@@ -295,7 +295,7 @@ $(document).ready(function() {
                         +schedule_arr[j]['theme']+'</div>';
                 } else{
                     schedule_html += '<div class="week-schedule '+switchLevelToCss(schedule_arr[j]['level'])+'" style="top: 0 ;min-height: 4%">' +
-                        '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
+                        '<div></div>'
                         +schedule_arr[j]['theme']+'</div>';
                 }
             }
@@ -407,6 +407,13 @@ $(document).ready(function() {
             fillModal(true);
         }
     });
+    $('#schedule_type').change(function(){
+        if($(this).val() == 0){
+            $('#time_slot').show();
+        } else {
+            $('#time_slot').hide();
+        }
+    });
     $('#modal_save').click(function(){
         var schedule_arr = [];
         $('#schedule_list').find('option').each(function(i){
@@ -431,26 +438,51 @@ $(document).ready(function() {
             fillDayBox(schedule_data);
         }
         $modal.hide();
+        fillModal(true);
+        alert('保存成功');
     });
     $('#modal_delete').click(function(){
-        var $schedule_list = $('#schedule_list'),
+        var $schedule_list = $('.modal-body').find('#schedule_list'),
             $cur_option = $schedule_list.find('option:selected');
         if($cur_option.val() != -1){
             $cur_option.remove();
             $schedule_list.val(-1);
             fillModal(true);
+            alert('已删除');
         }
     });
     $('#modal_add').click(function(){
-        var $modal_body = $('.modal-body');
+        var $modal_body = $('.modal-body'),
+            $start_input = $modal_body.find('.modal-start>input'),
+            $end_input = $modal_body.find('.modal-end>input');
         var schedule_obj = {
-            start: $modal_body.find('.modal-start>input').val() + $modal_body.find('.modal-start>select').val()==0?'00':'30',
-            end: $modal_body.find('.modal-end>input').val() + $modal_body.find('.modal-end>select').val()==0?'00':'30',
+            start: $start_input.val() + $modal_body.find('.modal-start>select').val()==0?':00':':30',
+            end: $end_input.val() + $modal_body.find('.modal-end>select').val()==0?':00':':30',
             theme: $modal_body.find('.modal-theme>input').val(),
             content: $modal_body.find('.modal-detail>textarea').val(),
-            level:1,
-            allDay: false
+            level:$modal_body.find('#important').val(),
+            allDay: $modal_body.find('#schedule_type').val()
         }
+        if(schedule_obj.theme == ''){
+            alert('必须输入任务主题')
+            return false;
+        }
+        if($start_input.val() == '' &&　$end_input.val() == ''){
+            schedule_obj.allDay =1;
+            delete schedule_obj.start;
+            delete schedule_obj.end;
+        } else {
+            if($start_input.val() == ''){
+                schedule_obj.start = '00:00'
+            } else if($end_input.val() == ''){
+                schedule_obj.end ='24:00'
+            }
+        }
+        var $option = $('<option value="-1">'+schedule_obj.theme+'</option>');
+        $option.data('schedule', schedule_obj);
+        fillModal(true);
+        $modal_body.find('#schedule_list').append($option);
+        alert('添加成功');
     });
     $('.modal-close').click(function () {
         var $modal = $('#modal');
@@ -463,12 +495,16 @@ $(document).ready(function() {
         if(isClear == true){
             $modal.find('input, textarea').val('');
         } else{
-            var start_time = data['start'].split(':'),
-                end_time = data['end'].split(':');
-            $modal.find('.modal-body>.modal-start>input').val(start_time[0]);
-            $modal.find('.modal-body>.modal-start>select').val(start_time[1] == '00' ? 0 : 1);
-            $modal.find('.modal-body>.modal-end>input').val(end_time[0]);
-            $modal.find('.modal-body>.modal-end>select').val(end_time[1] == '00' ? 0 : 1);
+            $modal.find('#schedule_type').val(parseInt(data['allDay'])).trigger('change');
+            if(data['allDay']==0){
+                var start_time = data['start'].split(':'),
+                    end_time = data['end'].split(':');
+                $modal.find('#time_slot>.modal-start>input').val(start_time[0]);
+                $modal.find('#time_slot>.modal-start>select').val(start_time[1] == '00' ? 0 : 1);
+                $modal.find('#time_slot>.modal-end>input').val(end_time[0]);
+                $modal.find('#time_slot>.modal-end>select').val(end_time[1] == '00' ? 0 : 1);
+            }
+            $modal.find('#important').val(parseInt(data['level']));
             $modal.find('.modal-body>.modal-theme>input').val(data['theme']);
             $modal.find('.modal-body>.modal-detail>textarea').val(data['content']);
         }

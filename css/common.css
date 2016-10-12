@@ -61,20 +61,22 @@ i{
     line-height: 50px;
 }
 
-.modal-text{
-    line-height: 40px;
-}
-
 .modal-content{
     margin: 20px auto;
     padding: 20px;
     width: 40rem;
+    height: 90%;
     background-color: #fff;
+    overflow: scroll;
 }
 
 .modal-close{
     float: right;
     cursor: pointer;
+}
+
+.modal-text{
+    line-height: 40px;
 }
 
 .modal-body input, .modal-body textarea, .modal-body select{
