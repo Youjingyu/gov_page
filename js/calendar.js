@@ -1,40 +1,54 @@
 $(document).ready(function() {
     var schedule_data = {
         2016: {
-            9: {
+            11: {
                 10: [{
                     start: '11:00',
                     end: '12:00',
                     theme: '部门早会',
-                    content: 'have lunch',
+                    content: '布置当天工作',
                     allDay: 0,
                     level: 1
                 }]
             },
             10: {
                 23: [{
-                    start: '18:00',
-                    end: '19:00',
+                    start: '9:30',
+                    end: '10:00',
+                    theme: '部门早会',
+                    content: '布置当天工作',
+                    allDay: 0,
+                    level: 1
+                }],
+                2: [{
+                    start: '9:00',
+                    end: '11:30',
+                    theme: '每月总结',
+                    content: '当月工作总结',
+                    allDay: 0,
+                    level: 3
+                }],
+                15: [{
+                    start: '13:00',
+                    end: '14:00',
                     theme: '部门周报',
-                    content: 'go home',
+                    content: '总结本周工作',
                     allDay: 0,
                     level: 2
                 }],
                 8: [{
-                    start: '18:00',
-                    end: '19:00',
                     theme: '项目加班',
-                    content: 'get off work',
+                    content: '抓紧解决遗留问题',
                     allDay: 1,
-                    level: 3
+                    level: 4
                     },
                     {
-                        start: '13:00',
-                        end: '15:30',
-                        theme: '每月总结',
-                        content: 'get off work',
-                        allDay: 0,
-                        level: 4
+                    start: '18:00',
+                    end: '19:00',
+                    theme: '部门周报',
+                    content: '总结本周工作',
+                    allDay: 0,
+                    level: 2
                     }
                 ]
             }
@@ -288,7 +302,7 @@ $(document).ready(function() {
                     } else {
                         end_time[0] = Number(end_time[0]);
                     }
-                    height = (end_time[0]-start_time[0])*4 + '%';
+                    height = (Math.abs(end_time[0]-start_time[0]))*4 + '%';
 
                     schedule_html += '<div class="week-schedule '+switchLevelToCss(schedule_arr[j]['level'])+'" style="top:'+top+';min-height:'+height+';">' +
                         '<div>'+schedule_arr[j]['start']+'-'+schedule_arr[j]['end']+'</div>'
@@ -415,6 +429,52 @@ $(document).ready(function() {
         }
     });
     $('#modal_save').click(function(){
+        var $modal_body = $('.modal-body'),
+            start_time = $modal_body.find('#start_time').val(),
+            start_minute = $modal_body.find('#start_minute').val(),
+            end_time = $modal_body.find('#end_time').val(),
+            end_minute = $modal_body.find('#end_minute').val();
+        if(start_time > end_time || (start_time == end_time && start_minute >= end_minute)){
+            alert('结束时间必须大于开始时间！');
+            return false;
+        }
+        var schedule_obj = {
+            theme: $modal_body.find('.modal-theme>input').val(),
+            content: $modal_body.find('.modal-detail>textarea').val(),
+            level:$modal_body.find('#important').val(),
+            allDay: $modal_body.find('#schedule_type').val()
+        };
+        if(schedule_obj.theme == ''){
+            alert('必须输入任务主题！');
+            return false;
+        }
+        if(schedule_obj.allDay == 0){
+            schedule_obj.start = start_time + (start_minute==0?':00':':30');
+            schedule_obj.end = end_time + (end_minute==0?':00':':30');
+        }
+        var $schedule_list = $modal_body.find('#schedule_list');
+        if($schedule_list.val() == -1){
+            // 说明是新建日程
+            var $option = $('<option>'+schedule_obj.theme+'</option>');
+            $option.data('schedule', schedule_obj);
+            $schedule_list.append($option);
+        } else{
+            $schedule_list.find('option:selected').data('schedule', schedule_obj);
+        }
+        fillModal(true);
+        alert('保存成功！');
+    });
+    $('#modal_delete').click(function(){
+        var $schedule_list = $('.modal-body').find('#schedule_list'),
+            $cur_option = $schedule_list.find('option:selected');
+        if($cur_option.val() != -1){
+            $cur_option.remove();
+            $schedule_list.val(-1);
+            fillModal(true);
+            alert('已删除!');
+        }
+    });
+    $('.modal-close').click(function () {
         var schedule_arr = [];
         $('#schedule_list').find('option').each(function(i){
             if(i>0){
@@ -439,54 +499,7 @@ $(document).ready(function() {
         }
         $modal.hide();
         fillModal(true);
-        alert('保存成功');
-    });
-    $('#modal_delete').click(function(){
-        var $schedule_list = $('.modal-body').find('#schedule_list'),
-            $cur_option = $schedule_list.find('option:selected');
-        if($cur_option.val() != -1){
-            $cur_option.remove();
-            $schedule_list.val(-1);
-            fillModal(true);
-            alert('已删除');
-        }
-    });
-    $('#modal_add').click(function(){
-        var $modal_body = $('.modal-body'),
-            $start_input = $modal_body.find('.modal-start>input'),
-            $end_input = $modal_body.find('.modal-end>input');
-        var schedule_obj = {
-            start: $start_input.val() + $modal_body.find('.modal-start>select').val()==0?':00':':30',
-            end: $end_input.val() + $modal_body.find('.modal-end>select').val()==0?':00':':30',
-            theme: $modal_body.find('.modal-theme>input').val(),
-            content: $modal_body.find('.modal-detail>textarea').val(),
-            level:$modal_body.find('#important').val(),
-            allDay: $modal_body.find('#schedule_type').val()
-        }
-        if(schedule_obj.theme == ''){
-            alert('必须输入任务主题')
-            return false;
-        }
-        if($start_input.val() == '' &&　$end_input.val() == ''){
-            schedule_obj.allDay =1;
-            delete schedule_obj.start;
-            delete schedule_obj.end;
-        } else {
-            if($start_input.val() == ''){
-                schedule_obj.start = '00:00'
-            } else if($end_input.val() == ''){
-                schedule_obj.end ='24:00'
-            }
-        }
-        var $option = $('<option value="-1">'+schedule_obj.theme+'</option>');
-        $option.data('schedule', schedule_obj);
-        fillModal(true);
-        $modal_body.find('#schedule_list').append($option);
-        alert('添加成功');
-    });
-    $('.modal-close').click(function () {
-        var $modal = $('#modal');
-        $modal.hide().find('input, textarea').val('');
+
         $modal.find('#schedule_list').empty().append('<option value="-1">新建日程</option>');
     });
 
@@ -499,10 +512,10 @@ $(document).ready(function() {
             if(data['allDay']==0){
                 var start_time = data['start'].split(':'),
                     end_time = data['end'].split(':');
-                $modal.find('#time_slot>.modal-start>input').val(start_time[0]);
-                $modal.find('#time_slot>.modal-start>select').val(start_time[1] == '00' ? 0 : 1);
-                $modal.find('#time_slot>.modal-end>input').val(end_time[0]);
-                $modal.find('#time_slot>.modal-end>select').val(end_time[1] == '00' ? 0 : 1);
+                $modal.find('#start_time').val(start_time[0]);
+                $modal.find('#start_minute').val(start_time[1] == '00' ? 0 : 1);
+                $modal.find('#end_time').val(end_time[0]);
+                $modal.find('#end_minute').val(end_time[1] == '00' ? 0 : 1);
             }
             $modal.find('#important').val(parseInt(data['level']));
             $modal.find('.modal-body>.modal-theme>input').val(data['theme']);
