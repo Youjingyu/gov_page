@@ -140,6 +140,7 @@ i{
 
 .top-right>div{
     float: right;
+    position: relative;
     display: inline-block;
     height: 100%;
     width: 1.75rem;
@@ -153,6 +154,28 @@ i{
 
 .top-right>.top-user{
     width: 2.9rem;
+}
+
+.top-info{
+    position: absolute;
+    right: -0.7rem;
+    top: 0.3rem;
+    width: 1.3rem;
+    height: 1rem;
+    border-radius: 5px;
+    font-size: 13px;
+    line-height: 1rem;
+    text-align: center;
+    color: #fff;
+}
+
+
+.top-info1{
+    background-color: #ff6633;
+ }
+
+.top-info2{
+    background-color: #339900;
 }
 
 .top-right>.top-manager{
@@ -376,6 +399,7 @@ i{
     margin-bottom: 1.1rem;
 }
 .function-item{
+    position: relative;
     float: left;
     width: 6.5rem;
     height: 4.65rem;
@@ -394,16 +418,47 @@ i{
 
 .function-item>.item-icon{
     display: inline-block;
-    width: 2.05rem;
-    height: 2.05rem;
+}
+.function-info{
+    position: absolute;
+    display: inline-block;
+    right: -0.5rem;
+    top: -0.5rem;
+    width: 2.15rem;
+    height: 1.7rem;
+    line-height: 1.7rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.info-1{
+    background-image: url("../img/sbg_01.png");
+    background-repeat: repeat-x;
+    color: #fff;
+}
+.info-2{
+    background-image: url("../img/sbg_02.png");
+    background-repeat: repeat-x;
+    color: #fff;
+}
+.info-3{
+    background-image: url("../img/sbg_03.png");
+    background-repeat: repeat-x;
+    color: #fff;
+}
+.info-4{
+    background-image: url("../img/sbg_04.png");
+    background-repeat: repeat-x;
+    color: #fff;
 }
 .item-active{
     color: #cc0000;
-    background-color: darksalmon;
+    background-color: #fcf6ef;
 }
 .accept{
     background: url("../img/center_icon_b_01.png");
     background-size: 100%;
+    width: 2.05rem;
+    height: 2.05rem;
 }
 .item-active .accept{
     background: url("../img/center_icon_01.png");
@@ -419,6 +474,8 @@ i{
 .manage{
     background: url("../img/center_icon_b_02.png");
     background-size: 100%;
+    width: 1.7rem;
+    height: 2.1rem;
 }
 .item-active .manage{
     background: url("../img/center_icon_02.png");
@@ -434,6 +491,8 @@ i{
 .review{
     background: url("../img/center_icon_b_03.png");
     background-size: 100%;
+    width: 1.8rem;
+    height: 2.15rem;
 }
 .item-active .review{
     background: url("../img/center_icon_03.png");
@@ -449,6 +508,8 @@ i{
 .site{
      background: url("../img/center_icon_b_04.png");
      background-size: 100%;
+     width: 1.95rem;
+     height: 2rem;
  }
 .item-active .site{
     background: url("../img/center_icon_04.png");
@@ -464,6 +525,8 @@ i{
 .expert-review{
     background: url("../img/center_icon_b_05.png");
     background-size: 100%;
+    width: 2.55rem;
+    height: 2.05rem;
 }
 .item-active .expert-review{
     background: url("../img/center_icon_05.png");
@@ -479,6 +542,8 @@ i{
 .result{
     background: url("../img/center_icon_b_06.png");
     background-size: 100%;
+    width: 2.05rem;
+    height: 2.05rem;
 }
 .item-active .result{
     background: url("../img/center_icon_06.png");
@@ -494,6 +559,8 @@ i{
 .project{
     background: url("../img/center_icon_b_07.png");
     background-size: 100%;
+    width: 1.7rem;
+    height: 2.1rem;
 }
 .item-active .project{
     background: url("../img/center_icon_07.png");
@@ -509,6 +576,8 @@ i{
 .other{
     background: url("../img/center_icon_b_08.png");
     background-size: 100%;
+    width: 2.15rem;
+    height: 2.15rem;
 }
 .item-active .other{
     background: url("../img/center_icon_08.png");
@@ -580,6 +649,11 @@ i{
     margin: 0;
     font-size: 20px;
     line-height: 30px;
+    cursor: default;
+}
+
+.info-text>h3:hover{
+    color: #cc0000;
 }
 
 .info-text>p{
@@ -727,20 +801,28 @@ i{
 }
 
 .schedule-level1{
-    background-color: #b8b8b8;
-    color: #fff;
+    background-image: url("../img/dbg_01.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
 }
 .schedule-level2{
-    background-color: #51a2ff;
-    color: #fff;
+    background-image: url("../img/dbg_02.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
 }
 .schedule-level3{
-    background-color: #ffb65b;
-    color: #fff;
+    background-image: url("../img/dbg_03.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
 }
 .schedule-level4{
-    background-color: #d61e1e;
-    color: #fff;
+    background-image: url("../img/dbg_04.png");
+    background-repeat: repeat-x;
+    border: 1px solid #ccc;
+    color: #fff !important;
 }
 
 #calendar_week_tab{

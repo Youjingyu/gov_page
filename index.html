@@ -38,13 +38,18 @@
             <img src="img/user.png">
         </div>
         <div>
-            <img src="img/nav_icon_03_b.png">
+            <img src="img/nav_icon_03_b.png" class="top-icon-b">
+            <img src="img/nav_icon_03.png" style="display: none" class="top-icon">
         </div>
         <div>
-            <img src="img/nav_icon_02_b.png">
+            <div class="top-info top-info2">12</div>
+            <img src="img/nav_icon_02_b.png" class="top-icon-b">
+            <img src="img/nav_icon_02.png" style="display: none"  class="top-icon">
         </div>
         <div>
-            <img src="img/nav_icon_01_b.png">
+            <div class="top-info top-info1">1</div>
+            <img src="img/nav_icon_01_b.png" class="top-icon-b">
+            <img src="img/nav_icon_01.png" style="display: none"  class="top-icon">
         </div>
     </div>
 </div>
@@ -122,16 +127,19 @@
                 <div class="function-body">
                     <div class="clear-fix function-item-row">
                         <div class="function-item">
+                            <div class="function-info info-1">2</div>
                             <div class="item-icon accept"></div>
                             <br>
                             业务受理
                         </div>
                         <div class="function-item">
+                            <div class="function-info info-2">12</div>
                             <div class="item-icon manage"></div>
                             <br>
                             业务办理
                         </div>
                         <div class="function-item">
+                            <div class="function-info info-3">21</div>
                             <div class="item-icon review"></div>
                             <br>
                             业务审查
@@ -154,6 +162,7 @@
                             审批结果
                         </div>
                         <div class="function-item">
+                            <div class="function-info info-4">5</div>
                             <div class="item-icon project"></div>
                             <br>
                             备案项目
@@ -406,10 +415,9 @@
 </div>
 </body>
 <script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/echarts.js"></script>
+<script src="js/echarts.min.js"></script>
 <script src="js/sichuan.js"></script>
 <script src="js/calendar.js"></script>
-<script src="js/init.js"></script>
 <script>
     $(document).ready(function() {
         var chart = echarts.init(document.getElementById('map'));
@@ -424,7 +432,8 @@
         ];
         var mapOption = {
             tooltip: {
-                trigger: 'item'
+                trigger: 'item',
+                formatter: '{b}: {c}'
             },
             legend: {
                 orient: 'vertical',
@@ -439,10 +448,11 @@
                 show: false,
                 inRange: {
                     color: ['#ff7980', '#ffb59a', '#ffd6b8']
-                }
+                },
+                formater:'aaaa{1000-2000}'
             },
             series: [{
-                name: 'population',
+                name: '数据',
                 type: 'map',
                 map: '四川',
                 roam: false,
@@ -477,5 +487,21 @@
             $('.item-icon, .slidebar-menu li').addClass('ie8-back');
         }
     }
+    $('.top-right').on('mouseenter', '.top-icon-b', function(){
+        $(this).hide().next().show();
+    })
+    $('.top-right').on('mouseleave', '.top-icon', function(){
+        $(this).hide().prev().show();
+    });
+    $('.slidebar-menu').on('mouseenter', 'li', function(){
+        $(this).addClass('active');
+    }).on('mouseleave', 'li', function(){
+        $(this).removeClass('active');
+    });
+    $('.function-body').on('mouseenter', '.function-item', function(){
+        $(this).addClass('item-active');
+    }).on('mouseleave', '.function-item', function(){
+        $(this).removeClass('item-active');
+    });
 </script>
 </html>
