@@ -205,23 +205,24 @@ i{
 .slidebar-menu{
     height: 100%;
     border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
 }
 
 .slidebar-menu li{
     width: 100%;
-    height: 2.9rem;
-    line-height: 2.9rem;
     border-bottom: 1px solid #ccc;
     vertical-align: middle;
-    list-style: none;
     cursor: pointer;
 }
 
+.slidebar-menu>li{
+    list-style: none;
+}
+
 .slidebar-menu a{
-    display: inline-block;
+    display: block;
     width: 100%;
     height: 2.9rem;
+    line-height: 2.9rem;
 }
 
 .slidebar-menu li:before,.slidebar-menu li:after{
@@ -256,6 +257,28 @@ i{
     height: 1.1rem;
     background-size: 100%;
 }
+
+.second-menu>li{
+    height: 2.9rem;
+    list-style: none;
+    line-height: 2.9rem;
+}
+
+.second-menu{
+    display: none;
+}
+
+.second-menu>li i{
+    display: block;
+    background: none !important;
+    text-align: right;
+}
+
+.second-menu>li>a:hover{
+    background-color: #f1f1f1;
+    color: #cc0000;
+}
+
 .index i{
     width: 1.2rem;
     background-image: url("../img/left_icon_0.png");
@@ -305,12 +328,12 @@ i{
     filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/left_icon_b_05.png',sizingMethod='scale');
 }
 
-.active{
+.active>a{
     color: #cc0000;
     background-color: #fcf6ef;
 }
 
-.cur-page{
+.cur-page>a{
     color: #fff;
     background-image: url("../img/left_tittle.png");
 }
@@ -407,7 +430,7 @@ i{
     padding-top: 0.3rem;
     border: 1px solid #ccc;
     border-radius: 0.3rem;
-    background-color: #ccc;
+    background-color: #f9f9f9;
     font-size: 16px;
     text-align: center;
 }
@@ -597,6 +620,13 @@ i{
     border:1px solid #ccc;
 }
 
+.module-head>.info-more{
+    float: right;
+    font-size: 16px;
+    margin-right: 1.4rem;
+    cursor: default;
+}
+
 .info-body{
     padding: 0.9rem 0;
     background-color: #fff;
@@ -652,7 +682,7 @@ i{
     cursor: default;
 }
 
-.info-text>h3:hover{
+.info-text>h3:hover, .info-more:hover{
     color: #cc0000;
 }
 
@@ -674,7 +704,6 @@ i{
     height: 31rem;
     border:1px solid #ccc;
     border-right: none;
-    overflow: scroll;
     background-color: #fff;
 }
 
@@ -723,6 +752,7 @@ i{
     text-align: center;
     padding: 0 1.4rem;
     border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     background-color: #f3f3f3;
     font-size: 0;
 }
@@ -746,6 +776,7 @@ i{
 .month-head{
     height: 2.4rem;
     line-height: 2.4rem;
+    border-right: 1px solid #ccc;
     text-align: center;
     background-color: #ece9f1;
     color: #999;
@@ -755,12 +786,13 @@ i{
     float: left;
     height: 100%;
     width: 14.28571429%;
-    border-top: 1px solid #ccc;
     text-align: center;
 }
 
 .month-tab-content{
     border-top: 1px solid #ccc;
+    max-height: 22.75rem;
+    overflow-y: scroll;
 }
 
 .date-box{
@@ -830,25 +862,44 @@ i{
 }
 
 .week-head{
+    padding-top: 0.2rem;
+    height: 2.4rem;
+    line-height: 16px;
+    overflow: hidden;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     background-color: #ece9f1;
 }
 
 .week-head>div, .week-tab-content>div{
     float: left;
     width: 12.5%;
-    border-top: 1px solid #ccc;
     border-right: 1px solid #ccc;
     text-align: center;
 }
 
+.week-tab-content>div{
+    border-top: none;
+}
+
+.week-tab-content{
+    max-height: 22.8rem;
+    overflow-y: scroll;
+}
+
+.day-tab-content{
+    max-height: 25.2rem;
+    overflow-y: scroll;
+}
+
 .week-head>div{
+    height: 100%;
     border-right: none;
 }
 
 .day-head>div, .day-tab-content>div{
     float: left;
     width: 80%;
-    border-top: 1px solid #ccc;
     border-right: 1px solid #ccc;
     text-align: center;
 }

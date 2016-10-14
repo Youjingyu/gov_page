@@ -63,18 +63,16 @@
                         <i></i>
                     </div>
                     <div>首<span style="visibility: hidden">首页</span>页</div>
-                    <div>&gt;</div>
+                    <div></div>
                 </a>
             </li>
-            <li class="source">
-                <a>
+            <li class="source"><a>
                     <div>
                         <i></i>
                     </div>
                     <div>资质管理</div>
                     <div></div>
-                </a>
-            </li>
+                </a></li>
             <li class="data-statistic">
                 <a>
                     <div>
@@ -102,7 +100,7 @@
                     <div></div>
                 </a>
             </li>
-            <li class="history">
+            <li class="history has-second-menu">
                 <a>
                     <div>
                         <i></i>
@@ -110,6 +108,26 @@
                     <div>历史档案</div>
                     <div>&gt;</div>
                 </a>
+                <ul class="second-menu">
+                    <li>
+                        <a>
+                            <div>
+                                <i>◆</i>
+                            </div>
+                            <div>历史文档</div>
+                            <div></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <i>◆</i>
+                            </div>
+                            <div>历史文档</div>
+                            <div></div>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -183,6 +201,7 @@
                     <div>
                         公告栏信息
                     </div>
+                    <div class="info-more"><a>更多</a></div>
                 </div>
                 <div class="info-body">
                     <div class="info-row">
@@ -489,14 +508,22 @@
     }
     $('.top-right').on('mouseenter', '.top-icon-b', function(){
         $(this).hide().next().show();
-    })
-    $('.top-right').on('mouseleave', '.top-icon', function(){
+    }).on('mouseleave', '.top-icon', function(){
         $(this).hide().prev().show();
     });
     $('.slidebar-menu').on('mouseenter', 'li', function(){
-        $(this).addClass('active');
+        var $this = $(this);
+        if(!$this.hasClass('cur-page')){
+            $this.addClass('active');
+        }
     }).on('mouseleave', 'li', function(){
         $(this).removeClass('active');
+    }).on('click', 'li', function(){
+        var $this = $(this);
+        $('.cur-page').removeClass('cur-page');
+        $this.removeClass('active');
+        $this.addClass('cur-page');
+        $this.find('.second-menu').toggle();
     });
     $('.function-body').on('mouseenter', '.function-item', function(){
         $(this).addClass('item-active');
