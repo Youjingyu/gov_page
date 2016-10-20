@@ -182,19 +182,35 @@ $(document).ready(function() {
     }
 
     function switchLevelToCss(level){
-        var result = '';
+        var result = {};
         switch (parseInt(level)){
             case 1:
-                result = 'schedule-level1';
+                result = {
+                    "level": 1,
+                    "schedule-leve": "schedule-level1",
+                    "info-level": "info-1"
+                };
                 break;
             case 2:
-                result = 'schedule-level2';
+                result = {
+                    "level": 2,
+                    "schedule-leve": "schedule-level2",
+                    "info-level": "info-2"
+                };
                 break;
             case 3:
-                result = 'schedule-level3';
+                result = {
+                    "level": 3,
+                    "schedule-leve": "schedule-level3",
+                    "info-level": "info-3"
+                };
                 break;
             case 4:
-                result = 'schedule-level4';
+                result = {
+                    "level": 4,
+                    "schedule-leve": "schedule-level4",
+                    "info-level": "info-4"
+                };
                 break;
         }
         return result;
@@ -237,8 +253,13 @@ $(document).ready(function() {
                     var schedule_arr = $this.data('schedule'),
                         schedule_text = '';
                     for(var j=0; j<schedule_arr.length; j++){
-                        $date_content.addClass(switchLevelToCss(schedule_arr[j]['level']));
-                        schedule_text+=schedule_arr[j]['theme']
+                        var level = switchLevelToCss(schedule_arr[j]['level']);
+                        $date_content.addClass(level['schedule-leve']);
+                        schedule_text+=schedule_arr[j]['theme'];
+                        if($date_content.data('level') && $date_content.data('level').level < level.level){
+                            $date_content.append('<div class="function-info '+ (level['info-level']) +'">2</div>');
+                            $date_content.data('level', level);
+                        }
                     }
                     $schedule_box.text(schedule_text);
                 }
