@@ -508,8 +508,11 @@ $(document).ready(function() {
         var $modal = $('#modal'),
             cur_date = $modal.find('.modal-header>.modal-date').data('date');
         if(schedule_arr.length == 0){
-            delete schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str]
+            schedule_data[cur_date.year_str] && schedule_data[cur_date.year_str][cur_date.month_str] &&
+            delete schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str];
         } else{
+            schedule_data[cur_date.year_str] || (schedule_data[cur_date.year_str] = {});
+            schedule_data[cur_date.year_str][cur_date.month_str] || (schedule_data[cur_date.year_str][cur_date.month_str] = {});
             schedule_data[cur_date.year_str][cur_date.month_str][cur_date.date_str] = schedule_arr;
         }
         if(cur_date.type == 'month'){
