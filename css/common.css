@@ -807,7 +807,6 @@ i{
 }
 
 .date-box>.date-content{
-    overflow: hidden;
     position: relative;
     display: inline-block;
     line-height: 3.75rem;

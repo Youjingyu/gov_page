@@ -256,7 +256,8 @@ $(document).ready(function() {
                         var level = switchLevelToCss(schedule_arr[j]['level']);
                         $date_content.addClass(level['schedule-leve']);
                         schedule_text+=schedule_arr[j]['theme'];
-                        if($date_content.data('level') && $date_content.data('level').level < level.level){
+                        if(!$date_content.data('level') || $date_content.data('level').level < level.level){
+                            $date_content.find('.function-info').remove();
                             $date_content.append('<div class="function-info '+ (level['info-level']) +'">2</div>');
                             $date_content.data('level', level);
                         }
